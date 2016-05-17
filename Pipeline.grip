@@ -1,0 +1,157 @@
+<Pipeline>
+  <sources>
+    <ImageFile>
+      <property name="path" value="/Users/Toby/Documents/WPIlibSuite/TestWorkspace/CVTesting/src/RealFullField/5.jpg"/>
+    </ImageFile>
+  </sources>
+  <steps>
+    <Step name="HSV Threshold">
+      <Input step="0" socket="0"/>
+      <Input step="0" socket="1">
+        <value>
+          <double>88.13559322033896</double>
+          <double>130.53191489361703</double>
+        </value>
+      </Input>
+      <Input step="0" socket="2">
+        <value>
+          <double>45.621468926553675</double>
+          <double>96.75531914893618</double>
+        </value>
+      </Input>
+      <Input step="0" socket="3">
+        <value>
+          <double>146.4689265536723</double>
+          <double>184.92021276595744</double>
+        </value>
+      </Input>
+      <Output step="0" socket="0" previewed="false"/>
+    </Step>
+    <Step name="HSV Threshold">
+      <Input step="1" socket="0"/>
+      <Input step="1" socket="1">
+        <value>
+          <double>62.711864406779654</double>
+          <double>93.82978723404256</double>
+        </value>
+      </Input>
+      <Input step="1" socket="2">
+        <value>
+          <double>168.07909604519773</double>
+          <double>255.0</double>
+        </value>
+      </Input>
+      <Input step="1" socket="3">
+        <value>
+          <double>55.22598870056497</double>
+          <double>160.0531914893617</double>
+        </value>
+      </Input>
+      <Output step="1" socket="0" previewed="false"/>
+    </Step>
+    <Step name="CV bitwise_or">
+      <Input step="2" socket="0"/>
+      <Input step="2" socket="1"/>
+      <Output step="2" socket="0" previewed="false"/>
+    </Step>
+    <Step name="CV dilate">
+      <Input step="3" socket="0"/>
+      <Input step="3" socket="1"/>
+      <Input step="3" socket="2"/>
+      <Input step="3" socket="3">
+        <value>2.0</value>
+      </Input>
+      <Input step="3" socket="4">
+        <value>BORDER_CONSTANT</value>
+      </Input>
+      <Input step="3" socket="5"/>
+      <Output step="3" socket="0" previewed="false"/>
+    </Step>
+    <Step name="Find Contours">
+      <Input step="4" socket="0"/>
+      <Input step="4" socket="1">
+        <value>false</value>
+      </Input>
+      <Output step="4" socket="0" previewed="false"/>
+    </Step>
+    <Step name="Filter Contours">
+      <Input step="5" socket="0"/>
+      <Input step="5" socket="1">
+        <value>1000.0</value>
+      </Input>
+      <Input step="5" socket="2">
+        <value>0</value>
+      </Input>
+      <Input step="5" socket="3">
+        <value>0</value>
+      </Input>
+      <Input step="5" socket="4">
+        <value>1000</value>
+      </Input>
+      <Input step="5" socket="5">
+        <value>0</value>
+      </Input>
+      <Input step="5" socket="6">
+        <value>1000</value>
+      </Input>
+      <Input step="5" socket="7">
+        <value>
+          <double>0.0</double>
+          <double>100.0</double>
+        </value>
+      </Input>
+      <Input step="5" socket="8">
+        <value>0</value>
+      </Input>
+      <Input step="5" socket="9">
+        <value>1000000</value>
+      </Input>
+      <Input step="5" socket="10">
+        <value>0</value>
+      </Input>
+      <Input step="5" socket="11">
+        <value>1000</value>
+      </Input>
+      <Output step="5" socket="0" previewed="true"/>
+    </Step>
+  </steps>
+  <connections>
+    <Connection>
+      <Output step="3" socket="0" previewed="false"/>
+      <Input step="4" socket="0"/>
+    </Connection>
+    <Connection>
+      <Output step="4" socket="0" previewed="false"/>
+      <Input step="5" socket="0"/>
+    </Connection>
+    <Connection>
+      <Output source="0" socket="0" previewed="false"/>
+      <Input step="0" socket="0"/>
+    </Connection>
+    <Connection>
+      <Output step="2" socket="0" previewed="false"/>
+      <Input step="3" socket="0"/>
+    </Connection>
+    <Connection>
+      <Output step="1" socket="0" previewed="false"/>
+      <Input step="2" socket="1"/>
+    </Connection>
+    <Connection>
+      <Output step="0" socket="0" previewed="false"/>
+      <Input step="2" socket="0"/>
+    </Connection>
+    <Connection>
+      <Output source="0" socket="0" previewed="false"/>
+      <Input step="1" socket="0"/>
+    </Connection>
+  </connections>
+  <settings>
+    <teamNumber>0</teamNumber>
+    <publishAddress>roborio-0-frc.local</publishAddress>
+    <deployAddress>roborio-0-frc.local</deployAddress>
+    <deployDir>/home/lvuser</deployDir>
+    <deployUser>lvuser</deployUser>
+    <deployJavaHome>/usr/local/frc/JRE/</deployJavaHome>
+    <deployJvmOptions>-Xmx50m -XX:-OmitStackTraceInFastThrow -XX:+HeapDumpOnOutOfMemoryError</deployJvmOptions>
+  </settings>
+</Pipeline>
