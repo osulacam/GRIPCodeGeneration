@@ -14,16 +14,40 @@ public class Project {
 	}
 
 	public void parse(File inputFile){
+		String linebreak = "--------------------------------------------";
 		SAXBuilder saxBuilder = new SAXBuilder();
 		try {
 			Document document = saxBuilder.build(inputFile);
 			Element classElement = document.getRootElement();
 			List<Element> pipeline = classElement.getChildren();
 			if(pipeline.size()<3){
-				System.out.println("bad file");
+				System.err.println("bad file");
 			}
 			List<Element> sources = pipeline.get(0).getChildren();
+			for(Element source: sources){
+				System.out.println("Type = " + source.getName());
+				for(Element property: source.getChildren()){
+					System.out.println("Property " + property.getAttributeValue("name") + " = " +
+				property.getAttributeValue("value"));
+				}
+			}
+			System.out.println(linebreak);
 			List<Element> steps = pipeline.get(1).getChildren();
+			for(Element step : steps){
+				System.out.println("Step " + step.getAttributeValue("name"));
+				for(Element input: step.getChildren("Input")){
+					System.out.print("Input for step " + input.getAttributeValue("step")+
+							" in socket " + input.getAttributeValue("socket"));
+					Element value = input.getChild("value");
+					if(value != null){
+						System.out.println(" is " + value.getValue());
+					}
+					else{
+						System.out.println();;
+					}
+				}
+			}
+			System.out.println(linebreak);
 			List<Element> connections = pipeline.get(2).getChildren();
 			for(Element connection: connections){
 	            System.out.println("\nCurrent Element :" 
