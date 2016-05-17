@@ -1,6 +1,13 @@
 package deserialization;
 
 import java.io.*;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 import org.jdom2.*;
 import org.jdom2.input.SAXBuilder;
@@ -9,14 +16,16 @@ public class Project {
 	
 	public static void main(String args[]){
 		Project project = new Project();
-		File file = new File("Pipeline.grip");
+		Path path =  Paths.get("PipelinewGrip.grip");
+		InputStream file = project.cleanFile(path);
+		
 		project.parse(file);
 	}
 
-	public void parse(File inputFile){
+	public void parse(InputStream file){
 		SAXBuilder saxBuilder = new SAXBuilder();
 		try {
-			Document document = saxBuilder.build(inputFile);
+			Document document = saxBuilder.build(file);
 			Element classElement = document.getRootElement();
 			List<Element> pipeline = classElement.getChildren();
 			if(pipeline.size()<3){
@@ -29,7 +38,7 @@ public class Project {
 	            System.out.println("\nCurrent Element :" 
 	               + connection.getName());
 				Element output = connection.getChild("Output");
-				System.out.println("step= " + output.getAttributeValue("step"));
+				System.out.println("step= " + output.getAttribute("step"));
 				System.out.println("socket= " + output.getAttributeValue("socket"));
 				System.out.println("previewed= " + output.getAttributeValue("previewed"));
 				
@@ -48,5 +57,31 @@ public class Project {
 			e.printStackTrace();
 		}
 		
+	}
+	
+	public InputStream cleanFile(Path file){
+		
+		final String EoL = System.getProperty("line.separator");
+		List<String> lines;
+		String content = "";
+		try {
+			lines = Files.readAllLines(file,
+			        Charset.defaultCharset());
+			StringBuilder sb = new StringBuilder();
+			for (String line : lines) {
+			    sb.append(line).append(EoL);
+			}
+			content = sb.toString();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		content = content.replaceAll("grip:", "");
+		//System.out.println(content);
+		InputStream stream = new ByteArrayInputStream(content.getBytes(StandardCharsets.UTF_8));
+		return stream;
+
 	}
 }
