@@ -2,6 +2,7 @@ package GRIP;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class Pipeline {
 	protected List<Source> sources;
@@ -16,7 +17,24 @@ public class Pipeline {
 	
 	public void addSource(Source source){
 		this.sources.add(source);
-		
 	}
 
+	public void addStep(Step step){
+		this.steps.add(step);
+	}
+	public void makeConnection(Input inp, Output out){
+		Input connInp = null;
+		Output connOut = null;
+		for(Step step : steps){
+			Optional<Input> tempInp = step.getInput(inp);
+			if(tempInp.isPresent()){
+				connInp = tempInp.get();
+				}
+			Optional<Output> tempOut = step.getOutput(out);
+			if(tempOut.isPresent()){
+				connOut = tempOut.get();
+			}
+		}
+		this.connections.add(new Connection(connInp, connOut));
+	}
 }

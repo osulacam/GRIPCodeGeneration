@@ -12,6 +12,11 @@ public class Input {
 		this.socket = socket;
 		this.values = values;
 	}
+	public boolean is(int step, int socket){
+		return (this.step == step && this.socket==socket);
+	}
 	
-
+	public boolean is(Input inp){
+		return is(inp.step, inp.socket);
+	}
 }
