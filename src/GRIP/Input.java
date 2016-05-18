@@ -5,20 +5,20 @@ import java.util.List;
 public class Input {
 	protected int step;
 	protected int socket;
-	protected Object value;
+	protected List<String> values;
 	protected Output connectedOutput;
 	
-	public Input(int step, int socket, Object values){
+	public Input(int step, int socket, List<String> values){
 		this.step = step;
 		this.socket = socket;
-		this.value = values;
+		this.values = values;
 		this.connectedOutput = null;
 	}
 	
 	public Input(int step, int socket){
 		this.step = step;
 		this.socket = socket;
-		this.value = null;
+		this.values = null;
 		this.connectedOutput = null;
 	}
 	
@@ -38,8 +38,13 @@ public class Input {
 		if(connectedOutput!=null){
 			return connectedOutput.varName();
 		}
-		else if(value!=null){
-			return value.toString();
+		else if(values!=null){
+			String result = "Values [";
+			for(String val : values){
+				result += val+",";
+			}
+			result += "]";
+			return result;
 		}
 		else{
 			return "UnconnectedInputStep" + step + "Output" + socket;

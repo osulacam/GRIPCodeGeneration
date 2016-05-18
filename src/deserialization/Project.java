@@ -76,12 +76,20 @@ public class Project {
 			for(Element input: step.getChildren("Input")){
 				int stepNum = Integer.parseInt(input.getAttributeValue("step"));
 				int socketNum = Integer.parseInt(input.getAttributeValue("socket"));
+
+				ArrayList<String> values = new ArrayList<String>();
 				Element value = input.getChild("value");
-				Object val = null;
 				if(value!=null){
-					val = value.getChildren();
+					if(value.getChildren().isEmpty()){
+						values.add(value.getText());
+					}
+					else{
+					for(Element child : value.getChildren()){
+						values.add(child.getText());
+					}
+					}
 				}
-				stepToAdd.addInput(new Input(stepNum,socketNum,val));
+				stepToAdd.addInput(new Input(stepNum,socketNum,values));
 				
 			}
 			for(Element output: step.getChildren("Output")){
