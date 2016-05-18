@@ -39,12 +39,17 @@ public class Input {
 			return connectedOutput.varName();
 		}
 		else if(values!=null){
-			String result = "Values [";
-			for(String val : values){
-				result += val+",";
+			if(values.size() ==1){
+				return values.get(0);
 			}
-			result += "]";
-			return result;
+			else{
+				String result = "[";
+				for(String val : values){
+					result += val+",";
+				}
+				result += "]";
+				return result;
+			}
 		}
 		else{
 			return "UnconnectedInputStep" + step + "Output" + socket;

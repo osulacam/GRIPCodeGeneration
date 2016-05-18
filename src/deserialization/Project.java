@@ -20,13 +20,6 @@ public class Project {
 	
 	protected final Pipeline pipeline = new Pipeline();
 	
-	public static void main(String args[]){
-		Project project = new Project();
-		Path path =  Paths.get("PipelinewGrip.grip");
-		InputStream file = project.cleanFile(path);
-		
-		project.parse(file);
-	}
 
 	public void parse(InputStream file){
 		SAXBuilder saxBuilder = new SAXBuilder();
@@ -54,7 +47,6 @@ public class Project {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(pipeline.toString());
 	}
 	
 	private void addAllSources(List<Element> sources) {
@@ -130,7 +122,10 @@ public class Project {
 		
 		
 	}
-
+	
+	public Pipeline getPipeline(){
+		return pipeline;
+	}
 	
 
 	public InputStream cleanFile(Path file){

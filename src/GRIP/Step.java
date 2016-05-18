@@ -30,12 +30,21 @@ public class Step {
 		}	
 		return Optional.empty();
 	}
+	
 	public Optional<Output> getOutput(Output output){
 		for(Output out : outputs){
 			if(out.is(output))
 				return Optional.of(out);
 		}	
 		return Optional.empty();
+	}
+	
+	public List<Input> getInputs(){
+		return inputs;
+	}
+	
+	public List<Output> getOutputs(){
+		return outputs;
 	}
 	
 	public String toString(){

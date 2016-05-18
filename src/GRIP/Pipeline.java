@@ -46,4 +46,8 @@ public class Pipeline {
 		}
 		connInp.setConnectedOutput(connOut);
 	}
+	
+	public Step getStep(int stepNum){
+		return steps.get(stepNum);
+	}
 }
