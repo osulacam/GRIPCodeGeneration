@@ -3,6 +3,7 @@ package GRIP;
 
 
 public class Source {
+	
 	protected String name;
 	protected String value;
 	protected int sourceNumber;
