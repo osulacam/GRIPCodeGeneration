@@ -8,4 +8,6 @@ public class Connection {
 		this.input = input;
 		this.output = output;
 	}
+	
+	
 }

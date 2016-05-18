@@ -17,22 +17,14 @@ public class Pipeline {
 	
 	public void addSource(Source source){
 		this.sources.add(source);
-<<<<<<< HEAD
-	}
-	
-	public void addStep(Step step){
-		this.steps.add(step);
-	}
-	
-	public void addConnection(Connection connection){
-		this.connections.add(connection);
-=======
->>>>>>> b14a64baf1d5be74da6ef3db707cb6984f4d55c0
-	}
 
+	}
+	
 	public void addStep(Step step){
 		this.steps.add(step);
 	}
+	
+
 	public void makeConnection(Input inp, Output out){
 		Input connInp = null;
 		Output connOut = null;

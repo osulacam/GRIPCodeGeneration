@@ -43,11 +43,10 @@ public class Project {
 			List<Element> sources = pipeline.get(0).getChildren();
 			addAllSources(sources);
 			
-			System.out.println(linebreak);
 			List<Element> steps = pipeline.get(1).getChildren();
 			addAllSteps(steps);
 
-			System.out.println(linebreak);
+
 			List<Element> connections = pipeline.get(2).getChildren();
 			addAllConnections(connections);			
 			
@@ -86,51 +85,41 @@ public class Project {
 			}
 			for(Element output: step.getChildren("Output")){
 				OutputType type;
-				int value;
-				if(!output.getAttributeValue("step").isEmpty()){
-					type = OutputType.STEP;
-					value = Integer.parseInt(output.getAttributeValue("step"));
-				}
-				else{
-					type = OutputType.SOURCE;
-					value = Integer.parseInt(output.getAttributeValue("step"));
-				}
+				int valueNum = Integer.parseInt(output.getAttributeValue("step"));
+
 				
 				int socketNum = Integer.parseInt(output.getAttributeValue("socket"));
-				stepToAdd.addOutput(new Output(type, value, socketNum));
+				stepToAdd.addOutput(new Output(OutputType.STEP, valueNum, socketNum));
 			}
-			
-			
-			/*System.out.println("Step " + step.getAttributeValue("name"));
-			for(Element input: step.getChildren("Input")){
-				System.out.print("Input for step " + input.getAttributeValue("step")+
-						" in socket " + input.getAttributeValue("socket"));
-				Element value = input.getChild("value");
-				if(value != null){
-					System.out.println(" is " + value.getValue());
-				}
-				else{
-					System.out.println();
-				}
-			}*/
 		}
 		
 	}
 	
 	private void addAllConnections(List<Element> connections) {
+		
 		for(Element connection: connections){
-            System.out.println("\nCurrent Element :" 
-               + connection.getName());
 			Element output = connection.getChild("Output");
-			System.out.println("step= " + output.getAttribute("step"));
-			System.out.println("socket= " + output.getAttributeValue("socket"));
-			System.out.println("previewed= " + output.getAttributeValue("previewed"));
+			OutputType type;
+			int value;
+			if(output.getAttributes().get(0).getName().equals("step")){
+				type = OutputType.STEP;
+				value = Integer.parseInt(output.getAttributeValue("step"));
+			}
+			else{
+				type = OutputType.SOURCE;
+				value = Integer.parseInt(output.getAttributeValue("source"));
+			}
+			int outputSocketNum = Integer.parseInt(output.getAttributeValue("socket"));
+			Output conOutput = new Output(type, value, outputSocketNum);
 			
 			Element input = connection.getChild("Input");
-			System.out.println("step= " + input.getAttributeValue("step"));
-			System.out.println("socket= " + input.getAttributeValue("socket"));
+			int stepNum = Integer.parseInt(input.getAttributeValue("step"));
+			int inputSocketNum = Integer.parseInt(input.getAttributeValue("socket"));
+			Input conInput = new Input(stepNum, inputSocketNum);
 			
+			pipeline.makeConnection(conInput, conOutput);
 		}
+		
 		
 	}
 
