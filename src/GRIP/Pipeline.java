@@ -38,6 +38,6 @@ public class Pipeline {
 				connOut = tempOut.get();
 			}
 		}
-		this.connections.add(new Connection(connInp, connOut));
+		connInp.setConnectedOutput(connOut);
 	}
 }

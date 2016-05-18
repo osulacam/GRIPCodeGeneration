@@ -20,9 +20,6 @@ public class Project {
 	
 	protected final Pipeline pipeline = new Pipeline();
 	
-	public static final String linebreak = "--------------------------------------------";
-	
-	
 	public static void main(String args[]){
 		Project project = new Project();
 		Path path =  Paths.get("PipelinewGrip.grip");
@@ -87,12 +84,11 @@ public class Project {
 				OutputType type;
 				int valueNum = Integer.parseInt(output.getAttributeValue("step"));
 
-				
 				int socketNum = Integer.parseInt(output.getAttributeValue("socket"));
 				stepToAdd.addOutput(new Output(OutputType.STEP, valueNum, socketNum));
 			}
+			pipeline.addStep(stepToAdd);
 		}
-		
 	}
 	
 	private void addAllConnections(List<Element> connections) {
@@ -142,7 +138,6 @@ public class Project {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 		
 		content = content.replaceAll("grip:", "");
 		//System.out.println(content);
