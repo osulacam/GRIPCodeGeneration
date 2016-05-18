@@ -22,4 +22,5 @@ public class Output {
 	public String varName(){
 		return type.toString()+value+"Output"+socket;
 	}
+	
 }

@@ -37,4 +37,15 @@ public class Step {
 		}	
 		return Optional.empty();
 	}
+	
+	public String toString(){
+		String out = "Step: " + name + "\n";
+		for(Output output: outputs){
+			out += "	output: " + output.varName() + "\n";
+		}
+		for(Input input: inputs){
+			out += "	input: " + input.varName() + "\n";
+		}
+		return out;
+	}
 }

@@ -54,7 +54,7 @@ public class Project {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		System.out.println(pipeline.toString());
 	}
 	
 	private void addAllSources(List<Element> sources) {
@@ -77,7 +77,11 @@ public class Project {
 				int stepNum = Integer.parseInt(input.getAttributeValue("step"));
 				int socketNum = Integer.parseInt(input.getAttributeValue("socket"));
 				Element value = input.getChild("value");
-				stepToAdd.addInput(new Input(stepNum,socketNum,value));
+				Object val = null;
+				if(value!=null){
+					val = value.getChildren();
+				}
+				stepToAdd.addInput(new Input(stepNum,socketNum,val));
 				
 			}
 			for(Element output: step.getChildren("Output")){

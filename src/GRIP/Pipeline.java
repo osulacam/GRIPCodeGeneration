@@ -7,12 +7,10 @@ import java.util.Optional;
 public class Pipeline {
 	protected List<Source> sources;
 	protected List<Step> steps;
-	protected List<Connection> connections;
 	
 	public Pipeline(){
 		this.sources = new ArrayList<Source>();
 		this.steps = new ArrayList<Step>();
-		this.connections = new ArrayList<Connection>();
 	}
 	
 	public void addSource(Source source){
@@ -24,6 +22,14 @@ public class Pipeline {
 		this.steps.add(step);
 	}
 	
+	
+	public String toString(){
+		String out = "Pipeline: \n";
+		for(Step step: steps){
+			out += step.toString() + "\n";
+		}
+		return out;
+	}
 
 	public void makeConnection(Input inp, Output out){
 		Input connInp = null;
