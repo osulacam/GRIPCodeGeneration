@@ -18,4 +18,8 @@ public class Output {
 	public boolean is(Output out){
 		return is(out.type, out.value, out.socket);
 	}
+	
+	public String varName(){
+		return type.toString()+value+"Output"+socket;
+	}
 }
