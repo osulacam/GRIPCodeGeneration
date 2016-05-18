@@ -8,6 +8,8 @@ public class Connection {
 		this.input = input;
 		this.output = output;
 	}
-	
+	public String getId(){
+		return output.varName();
+	}
 	
 }
