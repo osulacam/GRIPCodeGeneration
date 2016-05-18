@@ -2,6 +2,7 @@ package GRIP;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class Step {
 	protected String name;
@@ -22,4 +23,18 @@ public class Step {
 		outputs.add(output);
 	}
 	
+	public Optional<Input> getInput(Input input){
+		for(Input inp : inputs){
+			if(inp.is(input))
+				return Optional.of(inp);
+		}	
+		return Optional.empty();
+	}
+	public Optional<Output> getOutput(Output output){
+		for(Output out : outputs){
+			if(out.is(output))
+				return Optional.of(out);
+		}	
+		return Optional.empty();
+	}
 }

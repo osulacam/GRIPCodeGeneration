@@ -10,4 +10,12 @@ public class Output {
 		this.value = value;
 		this.socket = socket;
 	}
+	
+	public boolean is(OutputType type, int value, int socket){
+		return (this.type == type && this.value==value && this.socket==socket);
+	}
+	
+	public boolean is(Output out){
+		return is(out.type, out.value, out.socket);
+	}
 }
