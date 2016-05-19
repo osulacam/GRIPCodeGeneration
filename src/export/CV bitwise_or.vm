@@ -1,0 +1,11 @@
+#**
+This creates the java OpenCV bitwise or function
+*#//inputs
+#set($inputs = $step.getInputs())
+//uses $inputs.get(0).varName();
+//uses $inputs.get(1).varName();
+//output
+#set( $outputs = $step.getOutputs())
+#set( $dst = $outputs.get(0).varName() )
+Mat $dst = new Mat();
+Core.bitwise_or($inputs.get(0).varName(),$inputs.get(1).varName(),$dst);

@@ -1,0 +1,17 @@
+#**
+This creates the complete java pipeline.
+*#//imports here ...
+#set($count = 0)
+#foreach($step in $pipeline.getSteps())
+
+
+//Step$count: $step.getName(): 
+#if($step.getName().equals("CV dilate"))
+#parse("/src/export/CV dilate.vm")
+#elseif($step.getName().equals("CV bitwise_or"))
+#parse("/src/export/CV bitwise_or.vm")
+#else
+//Operation not found
+#end
+#set($count = $count + 1)
+#end
