@@ -10,6 +10,12 @@ This creates the complete java pipeline.
 #parse("/src/export/CV dilate.vm")
 #elseif($step.getName().equals("CV bitwise_or"))
 #parse("/src/export/CV bitwise_or.vm")
+#elseif($step.getName().equals("HSV Threshold"))
+#parse("/src/export/HSV Threshold.vm")
+#elseif($step.getName().equals("Find Contours"))
+#parse("/src/export/Find Contours.vm")
+#elseif($step.getName().equals("Filter Contours"))
+#parse("/src/export/Filter Contours.vm")
 #else
 //Operation not found
 #end

@@ -8,4 +8,5 @@ This creates the java OpenCV bitwise or function
 #set( $outputs = $step.getOutputs())
 #set( $dst = $outputs.get(0).varName() )
 Mat $dst = new Mat();
+//operation
 Core.bitwise_or($inputs.get(0).varName(),$inputs.get(1).varName(),$dst);

@@ -4,24 +4,25 @@ This creates the java OpenCV dilate function
 #set($inputs = $step.getInputs())
 //uses $inputs.get(0).varName() as input
 #if(!$inputs.get(1).varName().equals("NoValue"))
-kernel = $inputs.get(1).varName();
+Mat kernel = $inputs.get(1).varName();
 #else
-kernel = new Mat();
+Mat kernel = new Mat();
 #end
 #if(!$inputs.get(2).varName().equals("NoValue"))
-anchor = $inputs.get(2).varName();
+Point anchor = $inputs.get(2).varName();
 #else
-anchor = new Point(-1,-1);
+Point anchor = new Point(-1,-1);
 #end
-iterations = $inputs.get(3).varName();
-borderType = Core.$inputs.get(4).varName();
+int iterations = (int)$inputs.get(3).varName();
+int borderType = Core.$inputs.get(4).varName();
 #if(!$inputs.get(5).varName().equals("NoValue"))
-borderValue = $inputs.get(5).varName();
+Scalar borderValue = $inputs.get(5).varName();
 #else
-borderValue = new Scalar(-1);
+Scalar borderValue = new Scalar(-1);
 #end
 //output
 #set( $outputs = $step.getOutputs())
 #set( $dst = $outputs.get(0).varName() )
 Mat $dst = new Mat();
+//operation
 Imgproc.dilate($inputs.get(0).varName(),$dst,kernel,anchor,iterations,borderType,borderValue);

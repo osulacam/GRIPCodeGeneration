@@ -1,3 +1,18 @@
 #**
 This creates the java HSV threshold OpenCV operation
-*#
+*#//inputs
+#set($inputs = $step.getInputs())
+//uses $inputs.get(0).varName() as input
+double hueL = $inputs.get(1).varNameAsList().get(0);
+double hueH = $inputs.get(1).varNameAsList().get(1);
+double satL = $inputs.get(2).varNameAsList().get(0);
+double satH = $inputs.get(2).varNameAsList().get(1);
+double valL = $inputs.get(3).varNameAsList().get(0);
+double valH = $inputs.get(3).varNameAsList().get(1);
+//output
+#set( $outputs = $step.getOutputs())
+#set( $dst = $outputs.get(0).varName() )
+Mat $dst = new Mat();
+//operation
+Imgproc.cvtColor($inputs.get(0).varName(), $dst, Imgproc.COLOR_BGR2HSV);
+Core.inRange($dst, new Scalar(hueL, satL ,valL), new Scalar(hueH, satH ,valH), $dst);
