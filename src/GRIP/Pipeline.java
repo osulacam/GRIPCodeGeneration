@@ -44,10 +44,16 @@ public class Pipeline {
 				connOut = tempOut.get();
 			}
 		}
+		if(connOut == null){
+			connOut = new Output(OutputType.SOURCE,0,0);
+		}
 		connInp.setConnectedOutput(connOut);
 	}
 	
 	public Step getStep(int stepNum){
 		return steps.get(stepNum);
+	}
+	public List<Step> getSteps(){
+		return steps;
 	}
 }

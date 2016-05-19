@@ -57,4 +57,8 @@ public class Step {
 		}
 		return out;
 	}
+	
+	public String getName(){
+		return name;
+	}
 }

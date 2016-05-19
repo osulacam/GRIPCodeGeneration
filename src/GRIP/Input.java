@@ -39,15 +39,17 @@ public class Input {
 			return connectedOutput.varName();
 		}
 		else if(values!=null){
+			if(values.size() == 0){
+				return "NoValue";
+			}
 			if(values.size() ==1){
 				return values.get(0);
 			}
 			else{
-				String result = "[";
-				for(String val : values){
-					result += val+",";
+				String result = values.get(0);
+				for(int i=1; i<values.size();i++){
+					result += "," + values.get(i);
 				}
-				result += "]";
 				return result;
 			}
 		}
