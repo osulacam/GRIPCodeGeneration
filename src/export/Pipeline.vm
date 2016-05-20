@@ -5,6 +5,7 @@ This creates the complete java pipeline.
 #foreach($step in $pipeline.getSteps())
 
 
+#set($c = $count)
 //Step$count: $step.getName(): 
 #if($step.getName().equals("CV dilate"))
 #parse("/src/export/CV dilate.vm")

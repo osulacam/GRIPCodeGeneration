@@ -1,55 +1,51 @@
 #**
 This creates the java OpenCV Filter Contours function
 *#//inputs
-#set($inputs = $step.getInputs())
-List<MatOfPoint> inputContours = $inputs.get(0).varName();
-double minArea = $inputs.get(1).varName();
-double minPerimeter = $inputs.get(2).varName();
-double minWidth = $inputs.get(3).varName();
-double maxWidth = $inputs.get(4).varName();
-double minHeight = $inputs.get(5).varName();
-double maxHeight = $inputs.get(6).varName();
-double minSolidity = $inputs.get(7).varNameAsList().get(0);
-double maxSolidity = $inputs.get(7).varNameAsList().get(1);
-double minVertexCount = $inputs.get(8).varName();;
-double maxVertexCount = $inputs.get(9).varName();;
-double minRatio = $inputs.get(10).varName();;
-double maxRatio = $inputs.get(11).varName();;
-final MatOfInt hull = new MatOfInt();
-
-//output
-#set( $outputs = $step.getOutputs())
-#set( $dst = $outputs.get(0).varName() )
+#set($inputs = $step.getInputNames())
+List<MatOfPoint> inputContours$c = $inputs.get(0);
+double minArea$c = $inputs.get(1);
+double minPerimeter$c = $inputs.get(2);
+double minWidth$c = $inputs.get(3);
+double maxWidth$c = $inputs.get(4);
+double minHeight$c = $inputs.get(5);
+double maxHeight$c = $inputs.get(6);
+double minSolidity$c = $step.varNameAsList($inputs.get(7)).get(0);
+double maxSolidity$c = $step.varNameAsList($inputs.get(7)).get(1);
+double minVertexCount$c = $inputs.get(8);
+double maxVertexCount$c = $inputs.get(9);
+double minRatio$c = $inputs.get(10);
+double maxRatio$c = $inputs.get(11);
+final MatOfInt hull$c = new MatOfInt();
+#parse("/src/export/SingleOutput.vm")
 List<MatOfPoint> $dst = new ArrayList<MatOfPoint>();
 //operation
-
-for (int i = 0; i < inputContours.size(); i++) {
-	final MatOfPoint contour = inputContours.get(i);
+for (int i = 0; i < inputContours${c}.size(); i++) {
+	final MatOfPoint contour = inputContours${c}.get(i);
 
 	final Rect bb = Imgproc.boundingRect(contour);
-	if (bb.width < minWidth || bb.width > maxWidth)
+	if (bb.width < minWidth$c || bb.width > maxWidth$c)
 		continue;
-	if (bb.height < minHeight || bb.height > maxHeight)
+	if (bb.height < minHeight$c || bb.height > maxHeight$c)
 		continue;
 	
 	final double area = Imgproc.contourArea(contour);
-	if (area < minArea)
+	if (area < minArea$c)
 		continue;
-	if (Imgproc.arcLength(new MatOfPoint2f(contour.toArray()), true) < minPerimeter)
+	if (Imgproc.arcLength(new MatOfPoint2f(contour.toArray()), true) < minPerimeter$c)
 		continue;
 	
-	Imgproc.convexHull(contour, hull);
+	Imgproc.convexHull(contour, hull$c);
 	MatOfPoint mopHull = new MatOfPoint();
-	mopHull.create((int) hull.size().height, 1, CvType.CV_32SC2);
-	for (int j = 0; j < hull.size().height; j++) {
-			int index = (int) hull.get(j, 0)[0];
+	mopHull.create((int) hull${c}.size().height, 1, CvType.CV_32SC2);
+	for (int j = 0; j < hull${c}.size().height; j++) {
+			int index = (int) hull${c}.get(j, 0)[0];
 		double[] point = new double[] { contour.get(index, 0)[0], contour.get(index, 0)[1] };
 			mopHull.put(j, 0, point);
 	}
 	final double solidity = 100 * area / Imgproc.contourArea(mopHull);
-	if (solidity < minSolidity || solidity > maxSolidity) continue;
-	if (contour.rows() < minVertexCount || contour.rows() > maxVertexCount)	continue;
+	if (solidity < minSolidity$c || solidity > maxSolidity$c) continue;
+	if (contour.rows() < minVertexCount$c || contour.rows() > maxVertexCount$c)	continue;
 	final double ratio = bb.width / bb.height;
-	if (ratio < minRatio || ratio > maxRatio)	continue;
+	if (ratio < minRatio$c || ratio > maxRatio$c)	continue;
 		${dst}.add(contour);
 }

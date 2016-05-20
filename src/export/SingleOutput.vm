@@ -1,0 +1,5 @@
+#**
+This creates the java OpenCV bitwise or function
+*#//output
+#set( $outputs = $step.getOutputs())
+#set( $dst = $outputs.get(0).varName() )

@@ -1,28 +1,26 @@
 #**
 This creates the java OpenCV dilate function
 *#//inputs
-#set($inputs = $step.getInputs())
-//uses $inputs.get(0).varName() as input
-#if(!$inputs.get(1).varName().equals("NoValue"))
-Mat kernel = $inputs.get(1).varName();
+#set($inputs = $step.getInputNames())
+Mat input$c =  $inputs.get(0);
+#if(!$inputs.get(1).equals("NoValue"))
+Mat kernel$c = $inputs.get(1);
 #else
-Mat kernel = new Mat();
+Mat kernel$c = new Mat();
 #end
-#if(!$inputs.get(2).varName().equals("NoValue"))
-Point anchor = $inputs.get(2).varName();
+#if(!$inputs.get(2).equals("NoValue"))
+Point anchor$c = $inputs.get(2);
 #else
-Point anchor = new Point(-1,-1);
+Point anchor$c = new Point(-1,-1);
 #end
-int iterations = (int)$inputs.get(3).varName();
-int borderType = Core.$inputs.get(4).varName();
-#if(!$inputs.get(5).varName().equals("NoValue"))
-Scalar borderValue = $inputs.get(5).varName();
+int iterations$c = (int)$inputs.get(3);
+int borderType$c = Core.$inputs.get(4);
+#if(!$inputs.get(5).equals("NoValue"))
+Scalar borderValue$c = $inputs.get(5);
 #else
-Scalar borderValue = new Scalar(-1);
+Scalar borderValue$c = new Scalar(-1);
 #end
-//output
-#set( $outputs = $step.getOutputs())
-#set( $dst = $outputs.get(0).varName() )
+#parse("/src/export/SingleOutput.vm")
 Mat $dst = new Mat();
 //operation
-Imgproc.dilate($inputs.get(0).varName(),$dst,kernel,anchor,iterations,borderType,borderValue);
+Imgproc.dilate(input$c,$dst,kernel$c,anchor$c,iterations$c,borderType$c,borderValue$c);

@@ -1,18 +1,16 @@
 #**
 This creates the java OpenCV Find Contours function
 *#//inputs
-#set($inputs = $step.getInputs())
-//uses $inputs.get(0).varName();
-Mat hierarchy = new Mat();
-#if($inputs.get(1).varName().equals("true"))
-int mode = Imgproc.RETR_EXTERNAL;
+#set($inputs = $step.getInputNames())
+Mat input$c = $inputs.get(0);
+Mat hierarchy$c = new Mat();
+#if($inputs.get(1).equals("true"))
+int mode$c = Imgproc.RETR_EXTERNAL;
 #else
-int mode = Imgproc.RETR_LIST;
+int mode$c = Imgproc.RETR_LIST;
 #end
-int method = Imgproc.CHAIN_APPROX_SIMPLE;
-//output
-#set( $outputs = $step.getOutputs())
-#set( $dst = $outputs.get(0).varName())
+int method$c = Imgproc.CHAIN_APPROX_SIMPLE;
+#parse("/src/export/SingleOutput.vm")
 List<MatOfPoint> $dst = new ArrayList<MatOfPoint>();
 //operation
-Imgproc.findContours($inputs.get(0).varName(), $dst, hierarchy, mode, method);
+Imgproc.findContours(input$c, $dst, hierarchy$c, mode$c, method$c);

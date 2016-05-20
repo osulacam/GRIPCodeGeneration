@@ -43,6 +43,22 @@ public class Step {
 		return inputs;
 	}
 	
+	public List<String>  getInputNames(){ 
+			List<String> Lon = new ArrayList<String>();
+			inputs.forEach(input -> Lon.add(input.varName()));
+			return	Lon;
+	}
+	
+	public static List<String> varNameAsList(String varName){
+		List<String> varNameList= new ArrayList<String>();
+		while(varName.contains(",")){
+			varNameList.add(varName.substring(0,varName.indexOf(',')));
+			varName = varName.substring(varName.indexOf(',')+1);
+		}
+		varNameList.add(varName);
+		return varNameList;	
+	}
+	
 	public List<Output> getOutputs(){
 		return outputs;
 	}

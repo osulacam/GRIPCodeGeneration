@@ -58,17 +58,7 @@ public class Input {
 			return "UnconnectedInputStep" + step + "Output" + socket;
 		}
 	}
-	public List<String> varNameAsList(){
-		String varName = varName();
-		List<String> varNameList= new ArrayList<String>();
-		while(varName.contains(",")){
-			varNameList.add(varName.substring(0,varName.indexOf(',')));
-			varName = varName.substring(varName.indexOf(',')+1);
-		}
-		varNameList.add(varName);
-		return varNameList;
-		
-	}
+
 	
 	
 }
