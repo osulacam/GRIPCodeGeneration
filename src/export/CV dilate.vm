@@ -1,26 +1,27 @@
 #**
 This creates the java OpenCV dilate function
-*#//inputs
+*#		//inputs
 #set($inputs = $step.getInputNames())
-Mat input$c =  $inputs.get(0);
+		Mat input$c =  $inputs.get(0);
 #if(!$inputs.get(1).equals("NoValue"))
-Mat kernel$c = $inputs.get(1);
+		Mat kernel$c = $inputs.get(1);
 #else
-Mat kernel$c = new Mat();
+		Mat kernel$c = new Mat();
 #end
 #if(!$inputs.get(2).equals("NoValue"))
-Point anchor$c = $inputs.get(2);
+		Point anchor$c = $inputs.get(2);
 #else
-Point anchor$c = new Point(-1,-1);
+		Point anchor$c = new Point(-1,-1);
 #end
-int iterations$c = (int)$inputs.get(3);
-int borderType$c = Core.$inputs.get(4);
+		int iterations$c = (int)$inputs.get(3);
+		int borderType$c = Core.$inputs.get(4);
 #if(!$inputs.get(5).equals("NoValue"))
-Scalar borderValue$c = $inputs.get(5);
+		Scalar borderValue$c = $inputs.get(5);
 #else
-Scalar borderValue$c = new Scalar(-1);
+		Scalar borderValue$c = new Scalar(-1);
 #end
 #parse("/src/export/SingleOutput.vm")
-Mat $dst = new Mat();
-//operation
-Imgproc.dilate(input$c,$dst,kernel$c,anchor$c,iterations$c,borderType$c,borderValue$c);
+		Mat $dst = new Mat();
+		//operation
+		Imgproc.dilate(input$c,$dst,kernel$c,anchor$c,iterations$c,borderType$c,borderValue$c);
+		outputs.put("$dst", $dst); $outputs.get(0).setValueType("Mat")

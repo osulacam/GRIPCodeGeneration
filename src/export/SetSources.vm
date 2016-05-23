@@ -1,0 +1,9 @@
+#**
+This creates setters for all of the Sources
+*##if($i<$numSources)
+	public void setSource$i(Mat source){
+		this.source$i = source;
+	}
+#set($i= $i +1)
+#parse("/src/export/SetSources.vm")
+#end

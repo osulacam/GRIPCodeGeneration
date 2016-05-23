@@ -1,0 +1,7 @@
+		#**
+		This creates the java OpenCV Filter Contours function
+		*#
+	public static Mat showContours(Mat out, List<MatOfPoint> contours) {
+		Imgproc.drawContours(out,contours, -1, new Scalar(0, 255, 0));
+		return out;
+	}

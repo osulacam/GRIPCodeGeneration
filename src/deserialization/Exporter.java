@@ -6,6 +6,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Properties;
 
+import javax.swing.JFileChooser;
+
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
@@ -23,7 +25,9 @@ public class Exporter {
 	
 	public static void main(String args[]){
 		Project project = new Project();
-		Path path =  Paths.get("PipelinewGrip.grip");
+		final JFileChooser fc = new JFileChooser();
+		int returnVal = fc.showOpenDialog(this)
+		//Path path =  Paths.get("GreenCube.grip");
 		InputStream file = project.cleanFile(path);
 		project.parse(file);
 		Pipeline pipeline = project.getPipeline();
@@ -33,11 +37,19 @@ public class Exporter {
 		exporter.export(pipeline);
 		
 	}
-	
+	 
+	/**
+	 * This is the default constructor that just initializes velocity.
+	 */
 	public Exporter(){
 		Velocity.init();
 	}
 	
+	/**
+	 * This prints out a generated Pipeline
+	 * @param pipeline pipeline a class created by the project class that includes all the
+	 * 		  information about the pipeline to be generated
+	 */
 	public void export(Pipeline pipeline){
 		
 		VelocityContext context = new VelocityContext();
