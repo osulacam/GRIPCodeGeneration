@@ -1,6 +1,12 @@
 		#**
 		This creates the java OpenCV Filter Contours function
 		*#
+	/**
+	 * Takes contours and places them on a image
+	 * @param out is Color Mat that the contours will be placed on
+	 * @param contours is a list of contours to be displayed
+	 * @return the out mat with contours on it
+	 */
 	public static Mat showContours(Mat out, List<MatOfPoint> contours) {
 		Imgproc.drawContours(out,contours, -1, new Scalar(0, 255, 0));
 		return out;

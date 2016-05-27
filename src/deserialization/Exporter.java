@@ -1,7 +1,10 @@
 package deserialization;
 
+import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.io.UnsupportedEncodingException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Properties;
@@ -12,10 +15,6 @@ import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
 import org.apache.velocity.app.VelocityEngine;
-import org.apache.velocity.context.Context;
-import org.apache.velocity.exception.MethodInvocationException;
-import org.apache.velocity.exception.ParseErrorException;
-import org.apache.velocity.exception.ResourceNotFoundException;
 
 import GRIP.Pipeline;
 
@@ -25,9 +24,7 @@ public class Exporter {
 	
 	public static void main(String args[]){
 		Project project = new Project();
-		final JFileChooser fc = new JFileChooser();
-		int returnVal = fc.showOpenDialog(this)
-		//Path path =  Paths.get("GreenCube.grip");
+		Path path =  Paths.get("ResizeGreenCube.grip");
 		InputStream file = project.cleanFile(path);
 		project.parse(file);
 		Pipeline pipeline = project.getPipeline();
@@ -59,6 +56,15 @@ public class Exporter {
 		StringWriter sw = new StringWriter();
 		Velocity.mergeTemplate(template,context,sw);
 		System.out.println(sw);
+		PrintWriter writer;
+		try {
+			writer = new PrintWriter("PipelineTest.java", "UTF-8");
+			writer.println(sw);
+			writer.close();
+		} catch (FileNotFoundException | UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+
 		
 	}
 	

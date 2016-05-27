@@ -1,6 +1,10 @@
 #**
 This creates setters for all of the Sources
 *##if($i<$numSources)
+	/**
+	 * This method sets source $i. 
+	 * @param source is the Mat that the source will be set to 
+	 */
 	public void setSource$i(Mat source){
 		this.source$i = source;
 	}
