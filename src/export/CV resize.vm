@@ -1,0 +1,19 @@
+#**
+This creates the java OpenCV CV resize function
+*#		//inputs
+#set($inputs = $step.getInputNames())
+		Mat Input$c = $inputs.get(0);
+#if(!$inputs.get(1).equals("NoValue"))
+		Size dsize$c = $inputs.get(1);
+#else
+		Size dsize$c = new Size(0,0);
+#end
+		double fx$c = $inputs.get(2);
+		double fy$c = $inputs.get(3);
+		int interpolation$c = Imgproc.$inputs.get(4);
+
+#parse("/src/export/SingleOutput.vm")
+		Mat $dst = new Mat();
+		//operation
+		Imgproc.resize(Input$c,$dst,dsize$c,fx$c,fy$c,interpolation$c);
+		outputs.put("$dst", $dst); $outputs.get(0).setValueType("Mat")
